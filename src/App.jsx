@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PokemonCard from './components/PokemonCard';
+import ScoreModal from './components/ScoreModal';
 
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
   const [clickedPokemons, setClickedPokemons] = useState(new Set());
   const [score, setScore] = useState(0);
+  const [lastScore, setLastScore] = useState(0);
+  const [topScore, setTopScore] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   // Fetch Pokemon data
   useEffect(() => {
@@ -31,8 +35,13 @@ const App = () => {
   const handlePokemonClick = (pokemon) => {
     if (clickedPokemons.has(pokemon.name)) {
       // Reset game
-      setClickedPokemons(new Set());
+      setLastScore(score);
+      setShowModal(true);
+      setTopScore(Math.max(topScore, score));
       setScore(0);
+      setClickedPokemons(new Set());
+
+
     } else {
       // Add clicked Pokemon to the set
       setClickedPokemons((prevSet) => new Set([...prevSet, pokemon.name]));
@@ -44,10 +53,23 @@ const App = () => {
     }
   };
 
+  const closeModal = () => {
+    setShowModal(false); // Hide the modal
+  };
+
   return (
     <div className="App">
       <h1>Pokemon Memory Game</h1>
       <h2>Score: {score}</h2>
+      <h3>Top Score: {topScore}</h3>
+
+      {showModal && (
+        <ScoreModal
+          score={lastScore}
+          onClose={() => setShowModal(false)}
+        />
+      )}
+
       <div className="pokemon-list">
         {pokemons.map((pokemon, index) => (
           <PokemonCard
