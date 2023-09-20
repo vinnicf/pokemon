@@ -1,0 +1,19 @@
+.pokemon-card {
+    width: 200px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 10px;
+    padding: 15px;
+}
+
+.pokemon-card img {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+    /* Image will scale to fit within frame, while maintaining its aspect ratio */
+}
+
+.pokemon-list {
+    display: flex;
+    flex-wrap: wrap;
+}
