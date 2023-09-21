@@ -1,0 +1,17 @@
+.app-footer {
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #f7f7f7;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+}
+
+.app-footer a {
+    color: #0366d6;
+    /* GitHub link color */
+    text-decoration: none;
+}
+
+.app-footer a:hover {
+    text-decoration: underline;
+}

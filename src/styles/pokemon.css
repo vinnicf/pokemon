@@ -1,5 +1,6 @@
 .pokemon-card {
-    width: 250px;
+    width: calc(100% / 6 - 20px);
+    /* 6 cards in a row subtracting the margin */
     border: 1px solid #ccc;
     text-align: center;
     margin: 10px;
@@ -11,10 +12,19 @@
     max-width: 100%;
     max-height: 200px;
     object-fit: contain;
-    /* Image will scale to fit within frame, while maintaining its aspect ratio */
 }
 
 .pokemon-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    /* Center the items */
+}
+
+/* Media query for screens up to 900px wide */
+@media (max-width: 900px) {
+    .pokemon-card {
+        width: calc(100% / 4 - 20px);
+        /* 4 cards in a row subtracting the margin */
+    }
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PokemonCard from './components/PokemonCard';
 import ScoreModal from './components/ScoreModal';
+import Footer from './components/Footer';
 import './App.css'
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
   const [lastScore, setLastScore] = useState(0);
   const [topScore, setTopScore] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [displaySet, setDisplaySet] = useState([]);
 
 
   // Shuffle Pokemon array
@@ -37,6 +39,7 @@ const App = () => {
     setPokemons(fetchedPokemons);
   };
 
+  // Shuffle Pokemon array
 
 
   useEffect(() => {
@@ -63,12 +66,39 @@ const App = () => {
       // Add clicked Pokemon to the set
       setClickedPokemons((prevSet) => new Set([...prevSet, pokemon.name]));
       setScore((prevScore) => prevScore + 1);
-
-      // Shuffle pokemons
-      shuffleArray(pokemons);
-      setPokemons([...pokemons]);
     }
   };
+
+  useEffect(() => {
+    if (pokemons.length > 0) {
+
+      const remainingPokemons = pokemons.filter(p => !clickedPokemons.has(p.name));
+
+      if (remainingPokemons.length === 0) {
+        setLastScore(score);
+        setShowModal(true);
+        setTopScore(Math.max(topScore, score));
+        setScore(0);
+        setClickedPokemons(new Set());
+        fetchPokemons();
+        return;
+      }
+
+      const newPokemon = getRandomElement(remainingPokemons);
+      const pool = [...pokemons.filter(p => p.name !== newPokemon.name)];
+      const others = getRandomElements(pool, 3, shuffleArray);
+
+      // Validate that "others" has content
+      if (others && others.length === 3) {
+        setDisplaySet([newPokemon, ...others]);
+      } else {
+        console.error('Unexpected issue with generating the display set.');
+      }
+    }
+  }, [pokemons, clickedPokemons, score, topScore]);
+
+
+
 
   const closeModal = () => {
     setShowModal(false); // Hide the modal
@@ -76,10 +106,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>Pokemon Memory Game</h1>
-      <h2>Score: {score}</h2>
-      <h3>Top Score: {topScore}</h3>
-
+      <div className="app-header">
+        <h1>Pokemon Memory Game</h1>
+        <h2>Score: {score}</h2>
+        <h3>Top Score: {topScore}</h3>
+      </div>
       {showModal && (
         <ScoreModal
           score={lastScore}
@@ -88,16 +119,28 @@ const App = () => {
       )}
 
       <div className="pokemon-list">
-        {pokemons.map((pokemon, index) => (
+        {displaySet.map((pokemon) => (
           <PokemonCard
-            key={index}
+            key={pokemon.name}
             pokemon={pokemon}
             onPokemonClick={handlePokemonClick}
           />
         ))}
       </div>
+      <Footer />
     </div>
+
   );
+};
+
+const getRandomElement = (array) => {
+  return array[Math.floor(Math.random() * array.length)];
+};
+
+const getRandomElements = (array, count, shuffleFunc) => {
+  const shuffled = [...array];
+  shuffleFunc(shuffled);
+  return shuffled.slice(0, count);
 };
 
 export default App;
