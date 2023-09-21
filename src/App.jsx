@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PokemonCard from './components/PokemonCard';
 import ScoreModal from './components/ScoreModal';
+import './App.css'
 
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -10,19 +11,6 @@ const App = () => {
   const [topScore, setTopScore] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
-  // Fetch Pokemon data
-  useEffect(() => {
-    const fetchPokemons = async () => {
-      const pokemonPromises = [];
-      for (let i = 1; i <= 30; i++) {
-        const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-        pokemonPromises.push(fetch(url).then((res) => res.json()));
-      }
-      const fetchedPokemons = await Promise.all(pokemonPromises);
-      setPokemons(fetchedPokemons);
-    };
-    fetchPokemons();
-  }, []);
 
   // Shuffle Pokemon array
   const shuffleArray = (array) => {
@@ -32,6 +20,32 @@ const App = () => {
     }
   };
 
+
+  // Fetch Pokemon data
+  const fetchPokemons = async () => {
+    const pokemonPromises = [];
+    for (let i = 1; i <= 30; i++) {
+      const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+      pokemonPromises.push(fetch(url).then((res) => res.json()));
+    }
+    let fetchedPokemons = await Promise.all(pokemonPromises);
+
+    // Shuffle and select first 12 Pokémon
+    shuffleArray(fetchedPokemons);
+    fetchedPokemons = fetchedPokemons.slice(0, 12);
+
+    setPokemons(fetchedPokemons);
+  };
+
+
+
+  useEffect(() => {
+
+    fetchPokemons();
+  }, []);  // Empty Dependencies array. Run once on mount
+
+
+
   const handlePokemonClick = (pokemon) => {
     if (clickedPokemons.has(pokemon.name)) {
       // Reset game
@@ -40,6 +54,9 @@ const App = () => {
       setTopScore(Math.max(topScore, score));
       setScore(0);
       setClickedPokemons(new Set());
+
+      // Re-fetch and set random 12 Pokémon for new round
+      fetchPokemons();
 
 
     } else {
