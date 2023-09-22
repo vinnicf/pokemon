@@ -12,6 +12,7 @@ const App = () => {
   const [topScore, setTopScore] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [displaySet, setDisplaySet] = useState([]);
+  const [currentRound, setCurrentRound] = useState(1);
 
 
   // Shuffle Pokemon array
@@ -57,15 +58,17 @@ const App = () => {
       setTopScore(Math.max(topScore, score));
       setScore(0);
       setClickedPokemons(new Set());
+      setCurrentRound(1);  // Reset the round counter
 
       // Re-fetch and set random 12 Pokémon for new round
       fetchPokemons();
 
 
     } else {
-      // Add clicked Pokemon to the set
-      setClickedPokemons((prevSet) => new Set([...prevSet, pokemon.name]));
+
+      setClickedPokemons((prevSet) => new Set([...prevSet, pokemon.name])); // Add clicked Pokemon to the set
       setScore((prevScore) => prevScore + 1);
+      setCurrentRound((prevRound) => prevRound + 1)
     }
   };
 
@@ -80,6 +83,7 @@ const App = () => {
         setTopScore(Math.max(topScore, score));
         setScore(0);
         setClickedPokemons(new Set());
+        setCurrentRound(1);
         fetchPokemons();
         return;
       }
@@ -107,9 +111,11 @@ const App = () => {
   return (
     <div className="App">
       <div className="app-header">
-        <h1>Pokemon Memory Game</h1>
-        <h2>Score: {score}</h2>
-        <h3>Top Score: {topScore}</h3>
+        <div className="logo"><img src="src/assets/pokelogo.png" alt="" /></div>
+        <div className="score">
+          <h2>Score: {score}</h2>
+          <h3>Top Score: {topScore}</h3>
+        </div>
       </div>
       {showModal && (
         <ScoreModal
@@ -127,6 +133,7 @@ const App = () => {
           />
         ))}
       </div>
+      <div>{currentRound}/12</div>
       <Footer />
     </div>
 

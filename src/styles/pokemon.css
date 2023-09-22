@@ -1,6 +1,7 @@
 .pokemon-card {
     display: grid;
-    padding-bottom: 45vw;
+    width: 18vw;
+    height: 25vw;
     overflow: hidden;
     position: relative;
     border: 1px solid #ccc;
@@ -14,7 +15,7 @@
 
 .pokemon-card img {
     grid-row: 1 / 2;
-    max-height: 80%;
+    height: 100%;
     width: auto;
     max-width: 100%;
     display: block;
@@ -36,13 +37,27 @@
 .pokemon-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    ;
+    gap: 10px;
     justify-content: center;
 }
 
 @media (max-width: 900px) {
     .pokemon-list {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pokemon-card {
+        display: grid;
+        width: 40vw;
+        height: 40vw;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid #ccc;
+        text-align: center;
+        margin: 10px;
+        padding: 15px;
+        cursor: pointer;
+        grid-template-rows: 4fr 1fr;
+
     }
 }
