@@ -8,7 +8,8 @@ const PokemonCard = ({ pokemon, onPokemonClick }) => {
                 src={pokemon.sprites.other.dream_world.front_default}
                 alt={pokemon.name}
             />
-            <h3>{pokemon.name}</h3>
+            <div className="pokemon-title">
+                <h3>{pokemon.name}</h3></div>
         </div>
     );
 };

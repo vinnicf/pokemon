@@ -1,4 +1,10 @@
-.App {}
+.App {
+    width: auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    /* Header, content, footer layout */
+    height: 100vh;
+}
 
 .app-header {
     text-align: center;
