@@ -10,9 +10,24 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.658);
     z-index: 100;
-
-
 }
+
+.top-banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    background-color: red;
+    border-radius: 0; 
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 15px;
+    text-align: center; 
+}
+
 
 .modal-content {
     max-width: 800px;
@@ -31,15 +46,23 @@
     gap: 20px;
 }
 
+
+
+.modal-content h2 {
+    text-align: center;
+}
+
 .close-button {
+    font-size: 35px;
     position: absolute;
     top: 10px;
     right: 10px;
     cursor: pointer;
-    background-color: white;
+
     border-radius: 50%;
     /* Makes it circular */
     padding: 5px;
+    z-index: 2;
 }
 
 .lose-button {
@@ -58,10 +81,11 @@
 .restart-button {
     align-self: center;
     /* Center it horizontally */
-    background-color: white;
+    background-color: rgb(57, 245, 51);
+    margin-top: 50px;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     color: black;
     font-size: 1.8em;
     cursor: pointer;
