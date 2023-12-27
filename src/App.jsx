@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PokemonCard from './components/PokemonCard';
 import ScoreModal from './components/ScoreModal';
 import Footer from './components/Footer';
-import './App.css'
+import './App.css';
+import logo from './assets/pokelogo.png';
 
 const App = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -111,7 +112,7 @@ const App = () => {
   return (
     <div className="App">
       <div className="app-header">
-        <div className="logo"><img src="src/assets/pokelogo.png" alt="" /></div>
+        <div className="logo"><img src={logo} alt="" /></div>
         <div className="score">
           <div>Score: {score}</div>
           <div>Best Score: {topScore}</div>
