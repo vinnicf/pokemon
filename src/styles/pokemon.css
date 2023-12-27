@@ -41,6 +41,26 @@
     justify-content: center;
 }
 
+.score {
+    text-align: left;
+    padding-right: 40px; /* Consider if you really need this much padding-right */
+    opacity: 1;
+    background-color: #2626ab;
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px #424242,0 -5px 15px #424242;
+    font-size: 24px;
+    margin-left: 40px;
+    padding-top: 15px; /* Use specific padding-top */
+    padding-bottom: 15px; /* Use specific padding-bottom */
+    padding-left: 15px; /* Adjust padding-left as needed */
+    flex-shrink: 0;
+    display: inline-flex; /* This will make the container as tall as its content */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    align-self: flex-start; /* Align items to the start of the flex container */
+}
+
 @media (max-width: 900px) {
     .pokemon-list {
         grid-template-columns: repeat(2, 1fr);

@@ -113,8 +113,8 @@ const App = () => {
       <div className="app-header">
         <div className="logo"><img src="src/assets/pokelogo.png" alt="" /></div>
         <div className="score">
-          <h2>Score: {score}</h2>
-          <h3>Top Score: {topScore}</h3>
+          <div>Score: {score}</div>
+          <div>Best Score: {topScore}</div>
         </div>
       </div>
       {showModal && (
